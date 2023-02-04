@@ -122,7 +122,6 @@ venv.bak/
 
 # mkdocs documentation
 /site
-/mashangpytest/.idea
 
 # mypy
 .mypy_cache/
