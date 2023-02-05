@@ -90,3 +90,39 @@ Request响应部分：
 
 1. 去掉重复、冗余的代码
 2. 实现统一的异常处理以及日志监控
+
+## 四、引入用例管理框架pytest
+
+- python:
+  - pytest（常用）
+  - unittest
+- java:
+  - testng（常用）
+  - junit
+
+作用：
+1. 发现用例：默认发现用例的规则。
+   - 模块名必须以test_开头或者_test结尾。
+   - 测试类必须以Test开头。
+   - 测试方法必须以test_开头。
+2. 执行用例
+3. 判断结果
+4. 生成报告
+
+## 五、Pytest用例框架详细介绍
+
+- 结合selenium，request，appium实现web，接口，app自动化。  
+- 结合Allure生成非常美观的报告以及和Jenkins实现持续集成。  
+- 很多强大插件：
+
+      pytest         本身
+      pytest-html    生成html报告
+      pytest-xdist   多线程执行
+      pytest-ordering   控制用例的执行顺序
+      pytest-rerunfailures 失败用例重跑
+      pytest-base-url   基础路径
+      allure-pytest  生成allure报告
+
+把这些都放到requirement.txt里面。然后通过命令安装：`pip install -r requirements.txt`
+
+## 五、Pytest用例管理框架
