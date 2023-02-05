@@ -140,3 +140,29 @@ Request响应部分：
 **不管是命令行还是主函数，都会读取pytest.ini配置文件来执行。**
 
 ## 七、Pytest用例管理框架的前后置（固件，夹具）
+
+作用：在用例（类，模块，会话）之前和之后做一些操作。
+
+    def setup_method(self):
+        print("每个用例之前的操作")
+
+    def teardown_method(self):
+        print("每个用例之后的操作")
+
+    def setup_class(self):
+        print("每个类之前的操作")
+
+    def teardown_class(self):
+        print("每个类之前的操作")
+
+更强大的前后置：fixture 夹具
+
+装饰器：  
+> @pytest.fixture(scope="作用域",params="参数化",autouse="自动执行",ids="参数别名",name="别名")  
+> scope: function, class, module, session  
+> autouse: True和False  
+> params: 参数化["mysql", "redis"]  
+> ids: 参数的别名  
+> name: 夹具的别名,会使本来的名字失效
+
+## 八、接口关联封装（基于一个独立YAML文件）
