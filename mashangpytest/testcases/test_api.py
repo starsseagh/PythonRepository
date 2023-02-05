@@ -1,5 +1,7 @@
 """"""
-from mashangpytest.commons.request_util import RequestUtil
+import pytest
+
+from commons.request_util import RequestUtil
 
 
 class TestApi:
@@ -10,6 +12,7 @@ class TestApi:
     # ses = requests.session()
 
     # 获取access_token鉴权码接口
+    @pytest.mark.smoke
     def test_get_token(self):
         url = "https://api.weixin.qq.com/cgi-bin/token"
         data = {
@@ -27,6 +30,7 @@ class TestApi:
         # print(TestApi.access_token)
 
     # 查询标签接口
+    @pytest.mark.user
     def test_select_flag(self):
         url = "https://api.weixin.qq.com/cgi-bin/tags/get"
         data = {
@@ -80,10 +84,3 @@ class TestApi:
     #     RequestUtil().send_request("post", url, json=data, headers=header)
 
 
-if __name__ == '__main__':
-    TestApi().test_get_token()
-    TestApi().test_select_flag()
-    TestApi().test_edit_flag()
-    # TestApi2().test_file_upload()
-    # TestApi().test_phpwind()
-    # TestApi().test_login()

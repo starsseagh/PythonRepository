@@ -74,17 +74,17 @@ Request响应部分：
 
 接口关联三个层次：
 
-1. 通过类变量保存中间变量实现接口关联。  
+1. ~~通过类变量保存中间变量实现接口关联。(高耦合)~~
 2. 通过单独的文件保存中间变量实现接口关联。
 3. 极限封装成零代码的方式实现接口关联。
 
 接口关联两种方式：
 
 1. 正则提取实现接口关联
-   - `re.search()`通过正则匹配一个值，通过下标[1]取值，没有匹配到就返回None。
-   - `re.findall()`通过正则匹配多个值，返回List，通过下标取值，没有匹配到返回None。
+    - `re.search()`通过正则匹配一个值，通过下标[1]取值，没有匹配到就返回None。
+    - `re.findall()`通过正则匹配多个值，返回List，通过下标取值，没有匹配到返回None。
 2. JsonPath提取实现接口关联
-   - `jsonpath.jsonpath()`返回一个列表，通过下标取值，没有找到返回None。
+    - `jsonpath.jsonpath()`返回一个列表，通过下标取值，没有找到返回None。
 
 ## 三、接口自动化测试框架的封装
 
@@ -94,25 +94,26 @@ Request响应部分：
 ## 四、引入用例管理框架pytest
 
 - python:
-  - pytest（常用）
-  - unittest
+    - pytest（常用）
+    - unittest
 - java:
-  - testng（常用）
-  - junit
+    - testng（常用）
+    - junit
 
 作用：
+
 1. 发现用例：默认发现用例的规则。
-   - 模块名必须以test_开头或者_test结尾。
-   - 测试类必须以Test开头。
-   - 测试方法必须以test_开头。
+    - 模块名必须以test_开头或者_test结尾。
+    - 测试类必须以Test开头。
+    - 测试方法必须以test_开头。
 2. 执行用例
 3. 判断结果
 4. 生成报告
 
 ## 五、Pytest用例框架详细介绍
 
-- 结合selenium，request，appium实现web，接口，app自动化。  
-- 结合Allure生成非常美观的报告以及和Jenkins实现持续集成。  
+- 结合selenium，request，appium实现web，接口，app自动化。
+- 结合Allure生成非常美观的报告以及和Jenkins实现持续集成。
 - 很多强大插件：
 
       pytest         本身
@@ -125,4 +126,17 @@ Request响应部分：
 
 把这些都放到requirement.txt里面。然后通过命令安装：`pip install -r requirements.txt`
 
-## 五、Pytest用例管理框架
+## 六、Pytest用例管理框架如何执行（三种）
+
+1. 命令行
+2. 主函数
+
+       import pytest
+       if __name__ == '__main__':
+           pytest.main()
+
+3. 通过配置文件pytest.ini来改变以及执行用例
+
+**不管是命令行还是主函数，都会读取pytest.ini配置文件来执行。**
+
+## 七、Pytest用例管理框架的前后置（固件，夹具）
