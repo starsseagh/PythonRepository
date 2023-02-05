@@ -1,13 +1,15 @@
 import re
 import requests
 
+from mashangpytest.commons.request_util import RequestUtil
+
 
 class TestApi:
     # 类变量
     access_token = ""
     csrf_token = ""
 
-    ses = requests.session()
+    # ses = requests.session()
 
     # 获取access_token鉴权码接口
     def test_get_token(self):
@@ -20,7 +22,8 @@ class TestApi:
 
         # res = requests.get(url, params=data)
         # tokenList = jp.jsonpath(res.json(), "$.access_token")
-        res = TestApi.ses.request("get", url, params=data)
+        # res = TestApi.ses.request("get", url, params=data)
+        res = RequestUtil().send_request("get", url, params=data)
         TestApi.access_token = res.json()['access_token']
 
         print(TestApi.access_token)
@@ -31,9 +34,9 @@ class TestApi:
         data = {
             "access_token": TestApi.access_token
         }
-        res = TestApi.ses.request("get", url, data)
-        print(res.json())
+        RequestUtil().send_request("get", url, params=data)
 
+    # 编辑标签接口
     def test_edit_flag(self):
         url = "https://api.weixin.qq.com/cgi-bin/tags/update"
         data1 = {
@@ -42,8 +45,7 @@ class TestApi:
         data2 = {
             "tag": {"id": 134, "name": "广东人"}
         }
-        res = TestApi.ses.request("post", url, json=data2, params=data1)
-        print(res.json())
+        RequestUtil().send_request("post", url, json=data2, params=data1)
 
     # 文件上传接口
     def test_file_upload(self):
@@ -54,13 +56,12 @@ class TestApi:
         data2 = {
             "media": open("D:/Pictures/龙猫头像.jpg", "rb")
         }
-        res = TestApi.ses.request("post", url, files=data2, params=data1)
-        print(res.json())
+        RequestUtil().send_request("post", url, files=data2, params=data1)
 
     # 访问phpwind首页接口
     def test_phpwind(self):
         url = "http://47.107.116.139/phpwind"
-        res = TestApi.ses.request("get", url)
+        res = RequestUtil().send_request("get", url)
         TestApi.csrf_token = re.search('name="csrf_token" value="(.*?)"', res.text).group(1)
         print(TestApi.csrf_token)
 
@@ -78,8 +79,7 @@ class TestApi:
             "backurl": "http://47.107.116.139/phpwind/",
             "invite": ""
         }
-        res = TestApi.ses.request("post", url, data, headers=header)
-        print(res.json())
+        RequestUtil().send_request("post", url, json=data, headers=header)
 
 
 if __name__ == '__main__':
