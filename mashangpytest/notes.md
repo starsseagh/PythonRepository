@@ -166,3 +166,29 @@ Request响应部分：
 > name: 夹具的别名,会使本来的名字失效
 
 ## 八、接口关联封装（基于一个独立YAML文件）
+
+### （一）YAML详细介绍
+
+数据组成：
+1. map对象(字典dict)：`键:(一个空格)值`
+2. 数组对象(列表list)：`用一组"-"开头`
+
+用例基本架构：
+
+    -
+      feature: 模块
+      story: 接口
+      title: 用例标题
+      request:
+        method: get
+        url: https://api.weixin.qq.com/cgi-bin/token
+        headers: null
+        params:
+          "grant_type": "client_credential"
+          "appid": "wx8a9de038e93f77ab"
+          "secret": "8326fc915928dee3165720c910effb86"
+      validate: null
+
+### （二）数据驱动
+
+`@pytest.mark.parametrize("数据驱动的参数名", "数据驱动的值")`
