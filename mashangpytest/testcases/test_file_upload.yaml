@@ -1,0 +1,13 @@
+-
+  feature: 模块
+  story: 接口
+  title: 用例标题
+  request:
+    method: post
+    url: https://api.weixin.qq.com/cgi-bin/media/uploadimg
+    headers: null
+    params:
+      access_token: access_token
+    files:
+      media: D:/Pictures/龙猫头像.jpg
+  validate: null

@@ -3,7 +3,7 @@ import re
 
 import pytest
 from commons.request_util import RequestUtil
-from commons.yaml_util import write_yaml, read_yaml
+from commons.yaml_util import write_yaml, read_yaml, read_yaml_testcase
 
 
 class TestApi:
@@ -27,53 +27,58 @@ class TestApi:
 
     # 获取access_token鉴权码接口
     @pytest.mark.smoke
-    def test_get_token(self):
-        url = "https://api.weixin.qq.com/cgi-bin/token"
-        data = {
-            "grant_type": "client_credential",
-            "appid": "wx8a9de038e93f77ab",
-            "secret": "8326fc915928dee3165720c910effb86"
-        }
+    @pytest.mark.parametrize("caseinfo", read_yaml_testcase("testcases/test_get_token.yaml"))
+    def test_get_token(self, caseinfo):
+
+        method = caseinfo["request"]["method"]
+        url = caseinfo["request"]["url"]
+        data = caseinfo["request"]["params"]
+        res = RequestUtil().send_request(method, url, params=data)
+        if "access_token" in dict(res.json()).keys():
+            write_yaml({"access_token": res.json()['access_token']})
 
         # res = requests.get(url, params=data)
         # tokenList = jp.jsonpath(res.json(), "$.access_token")
         # res = TestApi.ses.request("get", url, params=data)
         # TestApi.access_token = res.json()['access_token']
-        res = RequestUtil().send_request("get", url, params=data)
-        write_yaml({"access_token": res.json()['access_token']})
         # print(TestApi.access_token)
 
-    # # 查询标签接口
-    # @pytest.mark.user
-    # def test_select_flag(self):
-    #     url = "https://api.weixin.qq.com/cgi-bin/tags/get"
-    #     data = {
-    #         "access_token": read_yaml("access_token")
-    #     }
-    #     RequestUtil().send_request("get", url, params=data)
-    #
-    # # 编辑标签接口
-    # def test_edit_flag(self):
-    #     url = "https://api.weixin.qq.com/cgi-bin/tags/update"
-    #     data1 = {
-    #         "access_token": read_yaml("access_token")
-    #     }
-    #     data2 = {
-    #         "tag": {"id": 134, "name": "广东人"}
-    #     }
-    #     RequestUtil().send_request("post", url, json=data2, params=data1)
-    #
-    # # 文件上传接口
-    # # def test_file_upload(self):
-    # #     url = "https://api.weixin.qq.com/cgi-bin/media/uploadimg"
-    # #     data1 = {
-    # #         "access_token": TestApi.access_token
-    # #     }
-    # #     data2 = {
-    # #         "media": open("D:/Pictures/龙猫头像.jpg", "rb")
-    # #     }
-    # #     RequestUtil().send_request("post", url, files=data2, params=data1)
-    #
+    # 编辑标签接口
+    @pytest.mark.parametrize("caseinfo", read_yaml_testcase("testcases/test_edit_flag.yaml"))
+    def test_edit_flag(self, caseinfo):
+        method = caseinfo["request"]["method"]
+        url = caseinfo["request"]["url"]
+        data = caseinfo["request"]["params"]
+        data["access_token"] = read_yaml("access_token")
+        json = caseinfo["request"]["json"]
+        RequestUtil().send_request(method, url, params=data, json=json)
+
+    # 查询标签接口
+    @pytest.mark.user
+    @pytest.mark.parametrize("caseinfo", read_yaml_testcase("testcases/test_select_flag.yaml"))
+    def test_select_flag(self, caseinfo):
+        # url = "https://api.weixin.qq.com/cgi-bin/tags/get"
+        # data = {
+        #     "access_token": read_yaml("access_token")
+        # }
+        method = caseinfo["request"]["method"]
+        url = caseinfo["request"]["url"]
+        data = caseinfo["request"]["params"]
+        data["access_token"] = read_yaml("access_token")
+        RequestUtil().send_request(method, url, params=data)
+
+    # 文件上传接口
+    @pytest.mark.parametrize("caseinfo", read_yaml_testcase("testcases/test_file_upload.yaml"))
+    def test_file_upload(self, caseinfo):
+        method = caseinfo["request"]["method"]
+        url = caseinfo["request"]["url"]
+        data = caseinfo["request"]["params"]
+        data["access_token"] = read_yaml("access_token")
+        files = caseinfo["request"]["files"]
+        for key, value in files.items():
+            files[key] = open(value, "rb")
+        RequestUtil().send_request("post", url, params=data, files=files)
+
     # # 访问phpwind首页接口
     # def test_phpwind(self):
     #     url = "http://47.107.116.139/phpwind"

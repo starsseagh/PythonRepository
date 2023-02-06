@@ -7,7 +7,7 @@
     url: https://api.weixin.qq.com/cgi-bin/token
     headers: null
     params:
-      "grant_type": "client_credential"
-      "appid": "wx8a9de038e93f77ab"
-      "secret": "8326fc915928dee3165720c910effb86"
+      grant_type: client_credential
+      appid: wx8a9de038e93f77ab
+      secret: 8326fc915928dee3165720c910effb86
   validate: null
