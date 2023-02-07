@@ -196,3 +196,12 @@ Request响应部分：
 问题：  
 1. 如果有接口关联，那么在下一接口里面无法直接调用python里面的方法。而是需要在下一个接口里面通过调用方法覆盖值。
 2. 一个接口对应一个yaml，如果一个接口有很多返利，那么yaml里面会有很多的数据
+3. 断言
+
+### （三）Allure报告
+
+1. 下载allure，配置环境变量
+2. 生成临时的json报告  
+`addopts = -vs --alluredir=./temps --clean-alluredir`
+3. 生成html的allure报告  
+封装
