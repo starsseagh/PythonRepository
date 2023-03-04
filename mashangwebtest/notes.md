@@ -63,5 +63,61 @@ from selenium.webdriver.common.by import By
 
 #### 分组1：根据文本定位a标签
 
-- LINK_TEXT
-- PARTIAL_LINK_TEXT
+- LINK_TEXT 精确定位
+- PARTIAL_LINK_TEXT 模糊定位
+
+#### 分组2：根据属性，定位任意元素
+
+- ID
+- NAME
+- CLASS_NAME
+- TAG_NAME
+
+```html
+<input 
+        id = "search-input"
+        type="text" 
+        name="wd" 
+        class="am-form-field" 
+        placeholder="其实搜索很简单^_^ !" 
+        value="" autocomplete="off">
+```
+
+对于同一个元素，可以使用多种定位策略。
+
+#### 分组3：通用定位策略
+
+- CSS
+- XPath
+
+```html
+<button type="submit" id="ai-topsearch" class="submit am-btn">
+    <i class="am-icon-search"></i>
+    <span>搜索</span>
+</button>
+```
+
+分组2，实际上是通过分组3的CSS完成定位的。
+```
+el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
+```
+
+- css表达的语法不够直观
+- 只能用于Web自动化测试
+
+##### XPath
+
+- XPath是一种查询语言
+- 支持逻辑运算、函数
+- 实现非常强大的功能
+- 可以用于App的自动化测试
+
+1. XPath语法  
+   表示层级 + 属性
+   - / （开头）根路径
+     - /html/body/div
+   - // 任意层级（包括所有层）
+     - //div
+   - @ 属性 
+2. XPath函数
+
