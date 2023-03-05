@@ -137,4 +137,9 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 
 ### 3.2 实战：商品下单流程
 
-
+1. 登录
+2. 选择商品
+3. 创建订单
+4. 选择收获地址
+5. 选择支付方式
+6. 点击 提交订单
