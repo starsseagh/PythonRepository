@@ -115,9 +115,26 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 1. XPath语法  
    表示层级 + 属性
    - / （开头）根路径
-     - /html/body/div
+     - `/html/body/div`
    - // 任意层级（包括所有层）
-     - //div
+     - `//div`
    - @ 属性 
+     - `$x('//a[@target="_top"]')` 
+   - / （中间）下一层
+     - `//p/input`
+   - . 本层
+   - .. 上一层
+     - 相对定位`$x('//input[@placeholder="请输入登录密码"]/../../..//input')[0]`
 2. XPath函数
+   - text 获取元素内的文本
+     - `$x('//a[text()="vivo X5MAX L 移动4G 八核超薄大屏5.5吋双卡手机vivoX5max"]')` 
+   - contains 任意位置包含
+     -  `$x('//a[contains(text(), "vivo")]')`
+   - starts-with 开头
+     - `$x('//a[starts-with(text(), "vivo")]')` 
+
+----
+
+### 3.2 实战：商品下单流程
+
 
