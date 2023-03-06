@@ -10,24 +10,24 @@ with get_webdriver() as driver:
     driver.maximize_window()    # 窗口最大化
 
     # 定位元素，模仿用户行为
-    # driver.find_element(By.LINK_TEXT, "登录").click()
-    #
-    # driver.find_element(By.XPATH,
-    #                     '//input[@placeholder="请输入用户名/手机/邮箱"]'
-    #                     ).send_keys("beifan")
-    #
-    # driver.find_element(By.XPATH,
-    #                     '//input[@placeholder="请输入登录密码"]'
-    #                     ).send_keys("123123")
-    #
-    # driver.find_element(By.XPATH, '//button[text()="登录"]').click()
-    #
-    # time.sleep(1)   # 休眠1秒，等待系统加载
-    # 获取系统提示
-    # msg = driver.find_element(By.XPATH, '//p[@class="prompt-msg"]').text
-    # assert msg == "登录成功"
+    driver.find_element(By.LINK_TEXT, "登录").click()
 
-    # time.sleep(1)   # 等待跳转首页
+    driver.find_element(By.XPATH,
+                        '//input[@placeholder="请输入用户名/手机/邮箱"]'
+                        ).send_keys("beifan123")
+
+    driver.find_element(By.XPATH,
+                        '//input[@placeholder="请输入登录密码"]'
+                        ).send_keys("123123")
+
+    driver.find_element(By.XPATH, '//button[text()="登录"]').click()
+
+    time.sleep(1)   # 休眠1秒，等待系统加载
+    # 获取系统提示
+    msg = driver.find_element(By.XPATH, '//p[@class="prompt-msg"]').text
+    assert msg == "登录成功"
+
+    time.sleep(1)   # 等待跳转首页
 
     driver.find_element(By.XPATH, '//a[starts-with(text(), "vivo")]').click()
     time.sleep(1)   # 等待跳转 商品详情
@@ -47,12 +47,12 @@ with get_webdriver() as driver:
     time.sleep(1)
 
     driver.switch_to.alert.accept()
-    driver.find_element(By.XPATH, '//span[text()="点击此按钮，提交订单"]').click()
+    driver.find_element(By.XPATH, '//button[@title="点击此按钮，提交订单"]').click()
     time.sleep(1)
 
     msg = driver.find_element(By.XPATH, '//p[@class="prompt-msg"]').text
     assert msg == "操作成功"
 
-    print(driver.current_url)
+    # print(driver.current_url)
     # pdb.set_trace()
 

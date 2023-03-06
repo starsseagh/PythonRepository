@@ -150,4 +150,13 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 - sleep等待
 - 复杂元素的处理
 
-引入pytest框架
+## 四、引入pytest
+
+安装pytest`pip install pytest`
+
+使用pytest  
+约定：测试用例相关的内容，以test开头来命名
+
+筛选用例：`pytest -k 函数名`
+
+## 五、pytest夹具
