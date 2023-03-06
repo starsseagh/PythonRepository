@@ -143,3 +143,11 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 4. 选择收获地址
 5. 选择支付方式
 6. 点击 提交订单
+
+### 问题：
+
+- 代码复用性
+- sleep等待
+- 复杂元素的处理
+
+引入pytest框架
