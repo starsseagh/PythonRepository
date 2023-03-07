@@ -160,3 +160,21 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 筛选用例：`pytest -k 函数名`
 
 ## 五、pytest夹具
+
+在测试用例前、后自动执行一些代码。
+
+如果测试用例需要已登录的状态，但是“登录”不是当前的用例测试步骤，将登录前置到夹具中。
+
+1. 定义夹具
+   ```python
+   import pytest
+   from webdriver_helper import get_webdriver
+   
+   @pytest.fixture()
+   def driver():
+       driver = get_webdriver()
+       return driver
+   ```
+2. 使用夹具`def 函数名(夹具名)`
+
+**重点1：夹具的前置和后置**
