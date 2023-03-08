@@ -178,3 +178,36 @@ el = driver.find_element(By.CSS_SELECTOR, ".submit, am-btn")
 2. 使用夹具`def 函数名(夹具名)`
 
 **重点1：夹具的前置和后置**
+
+```python
+import pytest
+from webdriver_helper import get_webdriver
+
+@pytest.fixture()
+def driver():
+    driver = get_webdriver()
+    driver.maximize_window()  # 窗口最大化
+    driver.get("http://101.34.221.219:8010/")   # 访问首页
+    # 前置部分，在测试用例之前执行
+    # 登录代码
+    yield driver    # 生成器的写法
+    # 后置部分，在测试用例之后执行
+    driver.quit()
+```
+
+浏览器启动的次数 = 测试用例的个数  
+如何避免重复启动浏览器？
+
+**重点2：夹具范围**
+
+pytest夹具有5种范围：
+
+- function：默认，每个用例执行一次
+- class：每个类执行一次
+- module：每个模块执行一次
+- package：每个包执行一次
+- session：整个测试过程只执行一次
+
+## 六、解决登录问题
+
+

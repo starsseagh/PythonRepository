@@ -11,13 +11,13 @@ from selenium.webdriver.common.by import By
 from webdriver_helper import get_webdriver
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def driver():
     driver = get_webdriver()
     driver.maximize_window()  # 窗口最大化
     driver.get("http://101.34.221.219:8010/")   # 访问首页
-
     # 前置部分，在测试用例之前执行
+    # 登录代码
     yield driver    # 生成器的写法
     # 后置部分，在测试用例之后执行
     driver.quit()
